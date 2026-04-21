@@ -1,11 +1,31 @@
-<div align="center">
+# Sala Bankietowa LuTa
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Strona internetowa Sali Bankietowej LuTa w Lubinie.
 
-  <h1>Built with AI Studio</h2>
+## Deployment via GitHub Actions
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+This project is configured to be deployed to **GitHub Pages** automatically upon pushing to the `main` branch.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+### Prerequisites
 
-</div>
+1.  Push this code to a GitHub repository.
+2.  Go to **Settings > Pages** in your repository.
+3.  Under **Build and deployment > Source**, select **GitHub Actions**.
+
+### Configuration
+
+If you are deploying to a sub-path (e.g., `https://username.github.io/sala-luta/`), you must update `vite.config.ts` to include the `base` property:
+
+```typescript
+export default defineConfig({
+  base: '/sala-luta/', // Replace with your repository name
+  // ... other config
+})
+```
+
+### Local Development
+
+```bash
+npm install
+npm run dev
+```
