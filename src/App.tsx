@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
-import { Mail, MapPin, Phone, Facebook, Star, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Mail, MapPin, Phone, Facebook, Star, ArrowRight, Menu, X } from 'lucide-react';
 
 const IMAGES = [
   "https://scontent-waw2-1.xx.fbcdn.net/v/t39.30808-6/528773046_122117617628936959_5361244164662348902_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=hD4X6U3TTQYQ7kNvwFkD94v&_nc_oc=AdqmkBOieih7LSiHWSuHzRw7nuK28n5DWhwGeJNJGlEtbofxMnsA-TNwpHESbamTjUs&_nc_zt=23&_nc_ht=scontent-waw2-1.xx&_nc_gid=IdXjD5SVBGTXvbOfpmO6xQ&_nc_ss=7a3a8&oh=00_Af1jyItDPUHPlcSWMBFPqbA7Jw65c9ZULSL8uRtDOexd3g&oe=69ED036F",
@@ -9,26 +10,90 @@ const IMAGES = [
   "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/528723361_122117617508936959_9173615639948468970_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_ohc=9wZoXyFFHfoQ7kNvwFVEaFs&_nc_oc=AdqhnwEbWoYXCaYsTr9n3mAkozXUdVNtZ0ldvq2gsK4I1qf1tO1AV5xQpkcJe1VPAyE&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=_vOLpun1eF6cJ5pmI_3sZQ&_nc_ss=7a3a8&oh=00_Af2FPIuc-Ki4PZWCAqr0TVXDrecpV8-P1MHjGYyDqDPtxA&oe=69ED318A"
 ];
 
-const Navbar = () => (
-  <nav className="fixed top-0 left-0 right-0 z-40 bg-brand-beige/95 backdrop-blur px-8 md:px-16 py-6 flex justify-between items-center border-b border-black/5">
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col">
-      <h1 className="text-4xl font-light italic leading-none tracking-tighter text-brand-dark">LuTa</h1>
-      <span className="font-sans text-[8px] uppercase tracking-[0.4em] opacity-60">Sala Bankietowa</span>
-    </motion.div>
-    
-    <div className="hidden lg:flex gap-12 font-sans text-[10px] uppercase tracking-[0.2em] font-medium">
-      <a href="#o-nas" className="hover:text-brand-gold transition-colors">O nas</a>
-      <a href="#galeria" className="hover:text-brand-gold transition-colors">Galeria zdjęć</a>
-      <a href="#lokalizacja" className="hover:text-brand-gold transition-colors">Lokalizacja</a>
-      <a href="#kontakt" className="hover:text-brand-gold transition-colors">Kontakt</a>
-    </div>
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    <div className="text-right hidden sm:block">
-      <span className="font-sans text-[9px] uppercase tracking-widest opacity-40 block mb-1">Kontakt</span>
-      <a href="tel:+48514946114" className="text-md font-medium hover:text-brand-gold transition-colors">+48 514 946 114</a>
-    </div>
-  </nav>
-);
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+  const navLinks = [
+    { href: "#o-nas", label: "O nas" },
+    { href: "#galeria", label: "Galeria zdjęć" },
+    { href: "#lokalizacja", label: "Lokalizacja" },
+    { href: "#kontakt", label: "Kontakt" },
+  ];
+
+  return (
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-brand-beige/95 backdrop-blur px-8 md:px-16 py-6 flex justify-between items-center border-b border-black/5">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col">
+          <h1 className="text-4xl font-light italic leading-none tracking-tighter text-brand-dark">LuTa</h1>
+          <span className="font-sans text-[8px] uppercase tracking-[0.4em] opacity-60">Sala Bankietowa</span>
+        </motion.div>
+        
+        {/* Desktop Links */}
+        <div className="hidden lg:flex gap-12 font-sans text-[10px] uppercase tracking-[0.2em] font-medium">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="hover:text-brand-gold transition-colors">{link.label}</a>
+          ))}
+        </div>
+
+        {/* Desktop Contact */}
+        <div className="text-right hidden sm:block">
+          <span className="font-sans text-[9px] uppercase tracking-widest opacity-40 block mb-1">Kontakt</span>
+          <a href="tel:+48514946114" className="text-md font-medium hover:text-brand-gold transition-colors">+48 514 946 114</a>
+        </div>
+
+        {/* Mobile Toggle Button */}
+        <button 
+          onClick={toggleMenu}
+          className="lg:hidden p-2 text-brand-dark hover:text-brand-gold transition-colors"
+          aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 bg-brand-beige pt-32 px-8 lg:hidden"
+          >
+            <div className="flex flex-col gap-8">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.href} 
+                  href={link.href} 
+                  onClick={closeMenu}
+                  className="text-4xl font-light italic tracking-tighter text-brand-dark hover:text-brand-gold transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="pt-8 border-t border-black/5 mt-4">
+                <p className="font-sans text-[10px] uppercase tracking-widest opacity-40 mb-4">Kontakt</p>
+                <a href="tel:+48514946114" className="text-2xl font-light block mb-2">+48 514 946 114</a>
+                <p className="text-sm opacity-60">Słowiańska 3, Lubin</p>
+              </div>
+            </div>
+            
+            <button 
+              onClick={closeMenu}
+              className="absolute top-8 right-8 p-2 text-brand-dark"
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const SectionHeader = ({ title, subtitle, number }: { title: string, subtitle?: string, number: string }) => (
   <div className="mb-16 space-y-6">
