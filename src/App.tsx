@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mail, MapPin, Phone, Facebook, Star, ArrowRight, Menu, X } from 'lucide-react';
 
 const IMAGES = [
-  "https://scontent-waw2-1.xx.fbcdn.net/v/t39.30808-6/528773046_122117617628936959_5361244164662348902_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=hD4X6U3TTQYQ7kNvwFkD94v&_nc_oc=AdqmkBOieih7LSiHWSuHzRw7nuK28n5DWhwGeJNJGlEtbofxMnsA-TNwpHESbamTjUs&_nc_zt=23&_nc_ht=scontent-waw2-1.xx&_nc_gid=IdXjD5SVBGTXvbOfpmO6xQ&_nc_ss=7a3a8&oh=00_Af1jyItDPUHPlcSWMBFPqbA7Jw65c9ZULSL8uRtDOexd3g&oe=69ED036F",
-  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/529254512_122117617622936959_8418865859194414829_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_ohc=L-O3eUsljxAQ7kNvwH3NRRj&_nc_oc=AdqkWPFikjeCfEQS51OlJGy-fXFtkVEe01UXGhblfHQEEF9lt7f6wguaBQmJCmIcPgo&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=GH7mU3n1DPJj8j3fr49cDQ&_nc_ss=7a3a8&oh=00_Af2gwpaxiI17OAjW-ahE-_0LcQwNIZ4XcbwuWNuYJB-rtQ&oe=69ED018B",
-  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/530093981_122117617520936959_2906288243354613251_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=UK4KWotXxXoQ7kNvwGIWnYt&_nc_oc=AdqdREdxL9yaIb2Ycbo-kLcQsSJGF_oqTK0kmx9fJuuBteAVbKcVY0X9bX7rhq0CJF8&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=b8xYDPOTfREy_vUBxm-uqw&_nc_ss=7a3a8&oh=00_Af3OVu4oPODyhlltaUChm_eIrApTrgd4cLhsvcBDqftxQw&oe=69ED2D1D",
-  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/529937442_122117617514936959_8153372063157695295_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_ohc=ZvkLlzSPbQUQ7kNvwGMQqG2&_nc_oc=AdqmnvAQwKUK5pGpfN1TbKngL2B3-UTWymR79eItMNiL7o9tEYtC7M_6x-nMWvjcFjg&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=2qQH5VPD7ffcvsKH7e4UlQ&_nc_ss=7a3a8&oh=00_Af3qFTr1V-EbMnP5KU-gJ4Mr_C9qEgKTdoehPhRnvUsACQ&oe=69ED1A1B",
-  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/528723361_122117617508936959_9173615639948468970_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_ohc=9wZoXyFFHfoQ7kNvwFVEaFs&_nc_oc=AdqhnwEbWoYXCaYsTr9n3mAkozXUdVNtZ0ldvq2gsK4I1qf1tO1AV5xQpkcJe1VPAyE&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=_vOLpun1eF6cJ5pmI_3sZQ&_nc_ss=7a3a8&oh=00_Af2FPIuc-Ki4PZWCAqr0TVXDrecpV8-P1MHjGYyDqDPtxA&oe=69ED318A"
+  "https://scontent-waw2-1.xx.fbcdn.net/v/t39.30808-6/528773046_122117617628936959_5361244164662348902_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_ohc=FDgswCPVFcwQ7kNvwH3_-D6&_nc_oc=AdpqQoJeTVcFA48xfXK8pNOC-1H5D4uU-oYkear0DlwJjFDT5qJdd0Tfxu7eQHzN488&_nc_zt=23&_nc_ht=scontent-waw2-1.xx&_nc_gid=DUULyfLCcfMQ2beqDgQVwg&_nc_ss=7b2a8&oh=00_Af5fg-MnxH7Vtn4nitt9dg7cpRaE65SRm_NkDr6gaqOhqw&oe=69FB83EF",
+  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/529254512_122117617622936959_8418865859194414829_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=13d280&_nc_ohc=yinrPAmB9bUQ7kNvwFTGQ_X&_nc_oc=AdoLx_wyqrbYNFiAl8Eg29RJA1ZJEfUut-2-RiqK_UHc5s1p236xJwoAHVa4em1Yvag&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=eJaQ5vt8WJakPWA5ZY0EKw&_nc_ss=7b2a8&oh=00_Af5gjSSpca0cPmY_kDuWiJLD41QDB1KbFWGasOB0XXwxyA&oe=69FB820B",
+  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/530093981_122117617520936959_2906288243354613251_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_ohc=Bwqyktupm8MQ7kNvwFNKY7e&_nc_oc=Adq4ujVQPPJLsWBhLIXrD0RAW7imsm2GGrFCcugzS_qO5a-_Dd-k97HbI-6etar72Y0&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=1w_C9yEU3iuNw2uKtEIWoA&_nc_ss=7b2a8&oh=00_Af5glXs1Oy_9ZyDBDBAGRSuFy97O-TaZ5suexuk0d9kdjA&oe=69FB755D",
+  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/529937442_122117617514936959_8153372063157695295_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_ohc=iRg7YUwC5a8Q7kNvwFFvQ49&_nc_oc=AdregyIBD4g-wqCvCMimJ0daVaOwZMr5Cjf0LioswZrvCcMnlZDVspzmEeD-1QLrNB4&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=CRSuMBJvqwP28n3l-ktlWw&_nc_ss=7b2a8&oh=00_Af6-fIx48RE7Z_b3FzrO-BQnV5fWm06CKZj0rpNHHiz5zg&oe=69FB9A9B",
+  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/528723361_122117617508936959_9173615639948468970_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_ohc=-CVKE0pBTPMQ7kNvwET3Y8q&_nc_oc=AdoS_W5lpLiVypNwkiYIRuNaHarKs-hl1hHn8G8as1evINitqSf87P7hd7AyuRWPjf4&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=5kiN3_6IJ5x9MMJpcViKig&_nc_ss=7b2a8&oh=00_Af7y75x41MwH-2b5CYSstbiHlZVSB2OOJpL_8iDzot8Y9w&oe=69FB79CA",
+  "https://scontent-waw2-2.xx.fbcdn.net/v/t39.30808-6/528675552_122117613692936959_4238235416622352689_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2a1932&_nc_ohc=--sM2iAQJdoQ7kNvwHbmr9m&_nc_oc=AdoakXoxLS8G1S4Z9IINEHgwtc4sPXkp09dITBF8c-XSRwH0xonLp8DAcZQKpLWNryM&_nc_zt=23&_nc_ht=scontent-waw2-2.xx&_nc_gid=HVCFU-qYQzuyeP4rlKqflg&_nc_ss=7b2a8&oh=00_Af4F2fQeYN_KcoZl_CBCC83Y9FKGbvoukoAjJ_spHXM7Ug&oe=69FB8835"
 ];
 
 const Navbar = () => {
@@ -186,7 +187,7 @@ const GallerySection = () => (
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`rounded-2xl overflow-hidden shadow-sm ${i === 4 ? 'md:col-span-2' : ''}`}
+          className="rounded-2xl overflow-hidden shadow-sm"
         >
           <img 
             src={src} 
